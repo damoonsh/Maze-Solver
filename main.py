@@ -14,18 +14,15 @@ def main():
             already = True
             map.run()
 
-        if pygame.event.get(): print(pygame.event.get())
-
         for event in pygame.event.get():
-            if event.type == pygame.K_x:
+            if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
             # Input
             if event.type == pygame.KEYDOWN:
 
-                # In order to observe the process
                 if event.key == pygame.K_SPACE:
-                    Run = False
+                    pass
                 if event.key == pygame.K_PAGEUP:
                     pass
                 if event.key == pygame.K_PAGEDOWN:
@@ -40,6 +37,7 @@ def main():
                     pass
                 if event.key == pygame.K_UP:
                     pass
+        pygame.display.update()
 
 if __name__ == '__main__':
     main()
