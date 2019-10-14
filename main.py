@@ -7,12 +7,10 @@ import pygame
 
 def main():
     Run = True
-    already = False
+    map = Map()
+
+    map.run()
     while Run:
-        if not already:
-            map = Map()
-            already = True
-            map.run()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -22,7 +20,8 @@ def main():
             if event.type == pygame.KEYDOWN:
 
                 if event.key == pygame.K_SPACE:
-                    pass
+                    map = Map()
+                    map.run()
                 if event.key == pygame.K_PAGEUP:
                     pass
                 if event.key == pygame.K_PAGEDOWN:
@@ -30,13 +29,14 @@ def main():
 
                 # Moving manually
                 if event.key == pygame.K_RIGHT:
-                    pass
+                    map.move(1, 0)
                 if event.key == pygame.K_LEFT:
-                    pass
+                    map.move(-1, 0)
                 if event.key == pygame.K_DOWN:
-                    pass
+                    map.move(0, 1)
                 if event.key == pygame.K_UP:
-                    pass
+                    map.move(0, -1)
+
         pygame.display.update()
 
 if __name__ == '__main__':
