@@ -11,6 +11,12 @@ class Mover:
         self.y = y
     # The logic of the mover is stated here
     def should_move(self, color):
+        ''' Contains the logic needed for the object to move '''
+
+
+        # If the color was black then don't move
         if color == 6556180:
             return False
+
+        # If none of the above statements were true then return True
         return True
