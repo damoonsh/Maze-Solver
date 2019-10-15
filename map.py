@@ -56,8 +56,12 @@ class Map:
                 self.pixel[x + r][y + c] = color
 
     def move(self, dx, dy):
-        print(self.pixel[self.obj.x + self.scale * dx][self.obj.y + self.scale * dy])
-        if self.obj.should_move(self.pixel[self.obj.x + self.scale * dx][self.obj.y + self.scale * dy]):
-            self.block(self.obj.x, self.obj.y)
-            self.obj.set_coordinates(self.obj.x + self.scale * dx, self.obj.y + self.scale * dy)
-            self.block(self.obj.x, self.obj.y, Consts.Item)
+        # Setting some variables, so we can check if the movement makes sense or not
+        out_range_x = (self.obj.x + self.scale * dx >= 0 or self.obj.x + self.scale * dx <= self.scale * self.col)
+        out_range_y = (self.obj.y + self.scale * dy >= 0 or self.obj.y + self.scale * dy <= self.scale * self.row)
+        out_range = out_range_x and out_range_y
+        if out_range:
+            if self.obj.should_move(self.pixel[self.obj.x + self.scale * dx][self.obj.y + self.scale * dy]):
+                self.block(self.obj.x, self.obj.y)
+                self.obj.set_coordinates(self.obj.x + self.scale * dx, self.obj.y + self.scale * dy)
+                self.block(self.obj.x, self.obj.y, Consts.Item)
