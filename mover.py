@@ -9,14 +9,11 @@ class Mover:
     def set_coordinates(self, x, y):
         self.x = x
         self.y = y
+    # Setting the scale so the logic can be applied
+    def set_scale(self, scal):
+        self.scale = scal
     # The logic of the mover is stated here
-    def should_move(self, color):
+    def move_logic(self, pixelC, x, y):
         ''' Contains the logic needed for the object to move '''
-
-
-        # If the color was black then don't move
-        if color == 6556180:
-            return False
-
-        # If none of the above statements were true then return True
-        return True
+        color = pixelC[x][y]
+        if
