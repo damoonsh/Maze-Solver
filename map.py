@@ -57,10 +57,13 @@ class Map:
 
     def move(self, dx, dy):
         # Setting some variables, so we can check if the movement makes sense or not
-        out_range_x = (self.obj.x + self.scale * dx >= 0 or self.obj.x + self.scale * dx <= self.scale * self.col)
-        out_range_y = (self.obj.y + self.scale * dy >= 0 or self.obj.y + self.scale * dy <= self.scale * self.row)
+        out_range_x = (self.obj.x + self.scale * dx >= 0 and self.obj.x + self.scale * dx < self.scale * self.col)
+        out_range_y = (self.obj.y + self.scale * dy >= 0 and self.obj.y + self.scale * dy < self.scale * self.row)
         out_range = out_range_x and out_range_y
+        # At the beginning it should be checked to see if the co-ordinates are in the demanded range so we won't
+        # have any, errors regarding the function not being in the range
         if out_range:
+            # After checking to see for the co-ordinates it is up to the mover object to decide the movement
             if self.obj.should_move(self.pixel[self.obj.x + self.scale * dx][self.obj.y + self.scale * dy]):
                 self.block(self.obj.x, self.obj.y)
                 self.obj.set_coordinates(self.obj.x + self.scale * dx, self.obj.y + self.scale * dy)
