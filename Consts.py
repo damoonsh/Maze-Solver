@@ -5,7 +5,7 @@ White = (125, 250, 25)
 Item = (30, 200, 90)
 
 class vals:
-    def set_props(self, scale=10, rows=10, cols=40):
+    def set_props(self, scale=40, rows=10, cols=10):
         self.scale = scale
         self.row = rows
         self.col = cols
