@@ -12,7 +12,7 @@ def main():
         val.set_props()
         # Prompting the user, if they want to adjust the map properties
         command = input('Press any key but D/d to set your map settings: ')
-        # If the aadjusting was requested then:
+        # If the adjusting was requested then:
         if command.lower() == 'd':
             print('[MESSAGE]:You have chosen to set your map properties')
             # Get the values
@@ -42,16 +42,14 @@ def main():
             if event.type == pygame.KEYDOWN:
                 # When space is enter questions for readjusting will be asked
                 if event.key == pygame.K_SPACE:
-                    # Just to seperate the processes
+                    # Just to separate the processes
                     print('-----------------------------------')
                     # Adjusting for the delay time, if demanded
                     command = input('Press y/Y if you want to change the delay time: ')
                     if command.lower() == 'y':
                         new_delay = int(input('New delay time: '))
                         map.delay = new_delay
-                    # Ajdusting for the map properties if demanded
-                    command = input('Want to change the map properties(Y): ')
-                    if command.lower() == 'y':
+                        # Adjusting for the map properties if demanded
                         consts = set_vals()
                     # Re-instantiating the map and running it
                     map = Map(consts)
