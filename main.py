@@ -36,6 +36,7 @@ def main():
         # Controlling the events within the app by this part
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                print('Quiting the trial as demanded.')
                 pygame.quit()
                 quit()
             # Input
@@ -51,6 +52,11 @@ def main():
                         map.delay = new_delay
                         # Adjusting for the map properties if demanded
                         consts = set_vals()
+                    # Re-instantiating the map and running it
+                    map = Map(consts)
+                    map.run()
+
+                if event.key == pygame.K_r:
                     # Re-instantiating the map and running it
                     map = Map(consts)
                     map.run()
