@@ -7,6 +7,7 @@ import pygame
 import random
 from mover import Mover
 
+
 class Map:
     # Initializing the Object with the default values for rows, cols and scale
     def __init__(self, consts):
@@ -26,7 +27,7 @@ class Map:
     def run(self):
         # Instantiating the initial properties for the application
         pygame.init()
-        height , width = self.col * self.scale, self.row * self.scale
+        height, width = self.col * self.scale, self.row * self.scale
         # Setting the height and width
         self.gameDisplay = pygame.display.set_mode((height, width))
         # Setting the caption
@@ -55,7 +56,7 @@ class Map:
             for c in range(self.col):
                 # Checks to see if the coordinates are in the blocks arrays or not
                 if (r, c) in self.blocks:
-                    self.block(c * self.scale, r * self.scale , Consts.Black)
+                    self.block(c * self.scale, r * self.scale, Consts.Black)
                 else:
                     self.block(c * self.scale, r * self.scale)
 
@@ -64,6 +65,7 @@ class Map:
     """
         Helper functions: Help the map to react to the necessary changes
     """
+
     # Maze
     def maze(self):
         num = int((self.row * self.col) * self.diff)
@@ -77,6 +79,7 @@ class Map:
                 self.pixel[x + r][y + c] = color
 
     """Logic related functions: """
+
     # This for the manual movement
     def move(self, dx, dy):
         # Setting some variables, so we can check if the movement makes sense or not
@@ -100,10 +103,10 @@ class Map:
             x, y = self.obj.move_logic(self.pixel, self.obj.x, self.obj.y)
 
             # The process of movement:
-            self.block(self.obj.x, self.obj.y) # Delete the current place of the block
-            self.obj.set_coordinates(x, y) # Set the new coordinates for the moving object
-            self.block(self.obj.x, self.obj.y, Consts.Item) # Draw the block with it's new place
-            self.obj.visited_coordinates.append((x, y)) # Track the visited coordinates
+            self.block(self.obj.x, self.obj.y)  # Delete the current place of the block
+            self.obj.set_coordinates(x, y)  # Set the new coordinates for the moving object
+            self.block(self.obj.x, self.obj.y, Consts.Item)  # Draw the block with it's new place
+            self.obj.visited_coordinates.append((x, y))  # Track the visited coordinates
 
             # Set a delay so the process can be tracked
             pygame.time.wait(self.delay)
