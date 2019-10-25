@@ -3,11 +3,10 @@
     the necessary data when needed.
 '''
 
-
 class Move:
-    def __int__(self, from_coor):
-        self.From = from_coor
-
+    def __init__(self):
+        # For the first movement the initial co-ordinate is (0, 0)
+        self.From = (0, 0)
     def set_props(self, props):
         self.From = props["from_coor"]
         self.To = props["to_coor"]
