@@ -5,6 +5,14 @@
 
 
 class Move:
+    def __init__(self):
+        # For the first movement the initial co-ordinate is (0, 0)
+        self.From = (0, 0)
+        # Also the before will equal none
+        self.before = None
+        self.To = 0
+        self.From = 0
+        
     def set_props(self, props):
         self.From = props["from_coor"]
         self.To = props["to_coor"]

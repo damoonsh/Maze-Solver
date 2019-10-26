@@ -22,7 +22,23 @@ class Map:
         self.diff = 0.38
         # The delay time for the mover object
         self.delay = 2000
-
+    #--------------------------------------------------------------------------------------------------
+    """ Verification of the map """
+    def get_array(self):
+        ''' Gets the map in the format of 1/0 array '''
+        # Keeps track of the map as an array
+        self.array = []
+        # The two for loops have the same functionality as the x-y system
+        for r in range(self.row):
+            # Instantiating the
+            self.array.append([])
+            for c in range(self.col):
+                # Checks to see if the coordinates are in the blocks arrays or not
+                if (r, c) in self.blocks:
+                    self.array[r].append("0")
+                else:
+                    self.array[r].append("1")
+    #---------------------------------------------------------------------------------------------------
     # Runs the main process
     def run(self):
         # Instantiating the initial properties for the application
@@ -42,6 +58,7 @@ class Map:
         """Drawing the map:"""
         # Instantiating the mover object
         self.obj = Mover()
+        self.obj.set_dimensions(self.col, self.row)
         # Setting the scale for that
         self.obj.set_scale(self.scale)
 
@@ -60,26 +77,24 @@ class Map:
                 else:
                     self.block(c * self.scale, r * self.scale)
 
+        # Instantiating the mover object on the domain of the movement
         self.block(0, 0, Consts.Item)
-
-    """
-        Helper functions: Help the map to react to the necessary changes
-    """
-
-    # Maze
+    # Maze: Generates the random blocks within the map
     def maze(self):
+        # Getting the number of blocks in the map
         num = int((self.row * self.col) * self.diff)
         for i in range(num):
             self.blocks.append(((random.randrange(self.row)), (random.randrange(self.col))))
+        # Generate the array of the map
+        self.get_array()
 
     # Block: Draws blocks pixel by pixel
     def block(self, x, y, color=Consts.White):
         for r in range(self.scale):
             for c in range(self.scale):
                 self.pixel[x + r][y + c] = color
-
-    """Logic related functions: """
-
+    #--------------------------------------------------------------------------------------------------------------
+    """Logic related functions """
     # This for the manual movement
     def move(self, dx, dy):
         # Setting some variables, so we can check if the movement makes sense or not
@@ -89,7 +104,7 @@ class Map:
 
         # At the beginning it should be checked to see if the co-ordinates are in the demanded range so we won't
         # have any, errors regarding the function not being in the range
-        if out_range:
+        if self.obj.check_range(self.obj.x + self.scale * dx, self.obj.y + self.scale * dy):
             # After checking to see for the co-ordinates it is up to the mover object to decide the movement
             if self.pixel[self.obj.x + self.scale * dx][self.obj.y + self.scale * dy] != 6556180:
                 self.block(self.obj.x, self.obj.y)
@@ -107,8 +122,6 @@ class Map:
             self.obj.set_coordinates(x, y)  # Set the new coordinates for the moving object
             self.block(self.obj.x, self.obj.y, Consts.Item)  # Draw the block with it's new place
             self.obj.visited_coordinates.append((x, y))  # Track the visited coordinates
-
+            self.obj.check_moves()
             # Set a delay so the process can be tracked
             pygame.time.wait(self.delay)
-        else:
-            print('The end')
