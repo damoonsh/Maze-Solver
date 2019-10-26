@@ -4,7 +4,7 @@
 '''
 
 class Move:
-    def __init__(self):
+    def __init__(self, props):
         # For the first movement the initial co-ordinate is (0, 0)
         self.From = (0, 0)
     def set_props(self, props):

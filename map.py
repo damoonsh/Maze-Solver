@@ -97,11 +97,6 @@ class Map:
     """Logic related functions """
     # This for the manual movement
     def move(self, dx, dy):
-        # Setting some variables, so we can check if the movement makes sense or not
-        out_range_x = (self.obj.x + self.scale * dx >= 0 and self.obj.x + self.scale * dx < self.scale * self.col)
-        out_range_y = (self.obj.y + self.scale * dy >= 0 and self.obj.y + self.scale * dy < self.scale * self.row)
-        out_range = out_range_x and out_range_y
-
         # At the beginning it should be checked to see if the co-ordinates are in the demanded range so we won't
         # have any, errors regarding the function not being in the range
         if self.obj.check_range(self.obj.x + self.scale * dx, self.obj.y + self.scale * dy):
@@ -122,6 +117,6 @@ class Map:
             self.obj.set_coordinates(x, y)  # Set the new coordinates for the moving object
             self.block(self.obj.x, self.obj.y, Consts.Item)  # Draw the block with it's new place
             self.obj.visited_coordinates.append((x, y))  # Track the visited coordinates
-            self.obj.check_moves()
+            # self.obj.check_moves()
             # Set a delay so the process can be tracked
             pygame.time.wait(self.delay)

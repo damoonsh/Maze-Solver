@@ -14,6 +14,7 @@ class Mover:
         self.visited_coordinates = [] # Just keeps track of the travelled co-ordinates
         self.moves = [] # Saves the moves being taken
         self.move = Move()
+        # self.move.set_before("base")
         # Knowing which point are deadends:
         self.deadEnds = []
     # Setter Functions===================================================
@@ -27,7 +28,7 @@ class Mover:
     def set_scale(self, scal):
         self.scale = scal
 
-    # Getting the needed dimensions
+    # Setting the needed dimensions
     def set_dimensions(self, col, row):
         self.col = col
         self.row = row
@@ -71,20 +72,28 @@ class Mover:
     # Helper=============================================================================
     # Manage the move objects
     def manage_tracking(self, to, move_type):
-        # Instantiating the Move oebjct in order to track the whole thing
+        # Instantiating the new move Object
         next_move = Move()
-        properies = {"from_coor": (self.x, self.y), "to_coor": (to), "move_type": move_type} # Default values
+        properies = {
+            "from_coor": (self.x, self.y),
+            "to_coor": (to),
+            "move_type": move_type
+        } # Default values
+        # Set the properties for the new move object
         next_move.set_props(properies)
+        # Set the before value of the new move object
         next_move.set_before(self.move)
-
+        # set the after value of the move object
         self.move.set_after(next_move)
+        # Kepp track of the movements by keeping it in the array
         self.moves.append(self.move)
-
+        print(self.move.__str__())
+        # Proceeding to the next object
         self.move = next_move
-    # 
-    def check_moves(self):
-        for move in self.moves:
-            print(move.after.Type)
+    #
+    # def check_moves(self):
+    #     for move in self.moves:
+    #         print(move.)
     # Checks to see if we are in the range or not
     def check_range(self, x, y):
         if (x >= 0 and x < self.scale * self.col) and (y >= 0 and y < self.scale * self.row):

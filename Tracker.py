@@ -9,10 +9,10 @@ class Move:
         # For the first movement the initial co-ordinate is (0, 0)
         self.From = (0, 0)
         # Also the before will equal none
-        self.before = None
+        self.before = "base"
         self.To = 0
         self.From = 0
-        
+
     def set_props(self, props):
         self.From = props["from_coor"]
         self.To = props["to_coor"]
@@ -23,3 +23,6 @@ class Move:
 
     def set_before(self, before):
         self.before = before
+
+    def __str__(self):
+        return f"type: {self.Type}, from:{self.From}, to:{self.To}, before{self.before.__str__()}"
