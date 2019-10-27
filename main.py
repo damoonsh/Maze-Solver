@@ -58,11 +58,12 @@ def main():
                     # Re-instantiating the map and running it
                     maze = Map(consts)
                     maze.run()
-
+                # Quick reset with no questions asked
                 if event.key == pygame.K_r:
                     # Re-instantiating the map and running it
                     maze = Map(consts)
-                    Paused = False
+                    print('Map is resetted===========================')
+                    pause = False
                     maze.run()
 
                 # For pausing the process

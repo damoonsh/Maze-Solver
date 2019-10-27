@@ -1,6 +1,6 @@
-'''
+"""
     Contains the logic for the mover object
-'''
+"""
 from Tracker import Move
 
 
@@ -11,12 +11,15 @@ class Mover:
         self.x = 0
         self.y = 0
         # Keeping track of taken paths in order to analyze it
-        self.visited_coordinates = [] # Just keeps track of the travelled co-ordinates
-        self.moves = [] # Saves the moves being taken
+        self.visited_coordinates = []  # Just keeps track of the travelled co-ordinates
+        self.moves = []  # Saves the moves being taken
         self.move = Move()
         # self.move.set_before("base")
         # Knowing which point are deadends:
         self.deadEnds = []
+        # Checker for tracking process
+        self.first_move = True
+
     # Setter Functions===================================================
     # Setting the coordinates if the object
     def set_coordinates(self, x, y):
@@ -32,10 +35,11 @@ class Mover:
     def set_dimensions(self, col, row):
         self.col = col
         self.row = row
+
     # Logic==============================================================
     """Logic part: """
-    def move_logic(self, pixelC, x, y, deadEnd=False):
-        ''' Contains the logic needed for the object to move '''
+
+    def move_logic(self, pixelC, x, y):
         # For each set of movement, first we add the movement to the next
         # movement of the current movement and then we equal the current
         # movement to the new movement.
@@ -60,7 +64,7 @@ class Mover:
         # UP:
         if self.check_range(x, y - self.scale) and self.point_confirm(x, y - self.scale):
             if pixelC[x][y - self.scale] != 6556180:
-                self.manage_tracking((x, y -self.scale), "U")
+                self.manage_tracking((x, y - self.scale), "U")
                 return x, y - self.scale
         """
             If there were no movement available then the specific point is a dead
@@ -69,34 +73,47 @@ class Mover:
             and the object should recheck the possibilities
         """
         self.visited_coordinates.append((x, y))
+
     # Helper=============================================================================
     # Manage the move objects
     def manage_tracking(self, to, move_type):
         # Instantiating the new move Object
         next_move = Move()
         properies = {
-            "from_coor": (self.x, self.y),
-            "to_coor": (to),
+            "from_coor": (int(self.x / self.scale), int(self.y / self.scale)),
+            "to_coor": (int(to[0] / self.scale), int(to[1] / self.scale)),
             "move_type": move_type
-        } # Default values
+        }  # Default values
         # Set the properties for the new move object
         next_move.set_props(properies)
-        # Set the before value of the new move object
-        next_move.set_before(self.move)
-        # set the after value of the move object
-        self.move.set_after(next_move)
-        # Kepp track of the movements by keeping it in the array
-        self.moves.append(self.move)
-        print(self.move.__str__())
-        # Proceeding to the next object
-        self.move = next_move
+        # If there has been no moves before then the next_move will be the current move
+        if self.first_move:
+            self.move = next_move
+            self.move.set_before("Base")
+            self.first_move = False
+            # For the first movement, there will be no before
+            # movements so we will just set it to "Base"
+            self.move.set_before("Base")
+        else:  # othervise follows:
+            # Set the before value of the new move object
+            next_move.set_before(self.move)
+            # set the after value of the move object
+            self.move.set_after(next_move)
+            # Kepp track of the movements by keeping it in the array
+            self.moves.append(self.move)
+
+            print("[LOGGING]", self.move)
+
+            # Proceeding to the next object
+            self.move = next_move
+
     #
     # def check_moves(self):
     #     for move in self.moves:
     #         print(move.)
     # Checks to see if we are in the range or not
     def check_range(self, x, y):
-        if (x >= 0 and x < self.scale * self.col) and (y >= 0 and y < self.scale * self.row):
+        if (0 <= x < self.scale * self.col) and (0 <= y < self.scale * self.row):
             return True
         return False
 

@@ -19,13 +19,15 @@ class Map:
         # Holds the blocks
         self.blocks = []
         # The difficulty level of the maze
-        self.diff = 0.38
+        self.diff = 0.32
         # The delay time for the mover object
-        self.delay = 2000
-    #--------------------------------------------------------------------------------------------------
+        self.delay = 1000
+
+    # --------------------------------------------------------------------------------------------------
     """ Verification of the map """
+
     def get_array(self):
-        ''' Gets the map in the format of 1/0 array '''
+        """ Gets the map in the format of 1/0 array """
         # Keeps track of the map as an array
         self.array = []
         # The two for loops have the same functionality as the x-y system
@@ -38,7 +40,8 @@ class Map:
                     self.array[r].append("0")
                 else:
                     self.array[r].append("1")
-    #---------------------------------------------------------------------------------------------------
+
+    # ---------------------------------------------------------------------------------------------------
     # Runs the main process
     def run(self):
         # Instantiating the initial properties for the application
@@ -79,6 +82,7 @@ class Map:
 
         # Instantiating the mover object on the domain of the movement
         self.block(0, 0, Consts.Item)
+
     # Maze: Generates the random blocks within the map
     def maze(self):
         # Getting the number of blocks in the map
@@ -93,8 +97,10 @@ class Map:
         for r in range(self.scale):
             for c in range(self.scale):
                 self.pixel[x + r][y + c] = color
-    #--------------------------------------------------------------------------------------------------------------
+
+    # --------------------------------------------------------------------------------------------------------------
     """Logic related functions """
+
     # This for the manual movement
     def move(self, dx, dy):
         # At the beginning it should be checked to see if the co-ordinates are in the demanded range so we won't
