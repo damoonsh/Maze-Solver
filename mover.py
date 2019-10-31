@@ -11,10 +11,11 @@ class Mover:
         # Keeping track of taken paths in order to analyze it
         self.visited_coordinates = []  # Just keeps track of the travelled co-ordinates
         self.moves = []  # Saves the moves being taken
-        self.move = Move()
         # self.move.set_before("base")
         # Knowing which point are deadends:
         self.deadEnds = []
+        # A variable for getting out of the deadend
+        self.backing = False
 
     # Setter Functions===================================================
     # Setting the coordinates if the object
@@ -24,8 +25,8 @@ class Mover:
         self.y = y
 
     # Setting the scale so the logic can be applied
-    def set_scale(self, scal):
-        self.scale = scal
+    def set_scale(self, scale):
+        self.scale = scale
 
     # Setting the needed dimensions
     def set_dimensions(self, col, row):
@@ -33,8 +34,6 @@ class Mover:
         self.row = row
 
     # Logic==============================================================
-    """Logic part: """
-
     def move_logic(self, pixelC, x, y):
         # For each set of movement, first we add the movement to the next
         # movement of the current movement and then we equal the current
@@ -65,7 +64,7 @@ class Mover:
             and the object should recheck the possibilities
         """
         self.visited_coordinates.append((x, y))
-        
+
     def check_range(self, x, y):
         if (0 <= x < self.scale * self.col) and (0 <= y < self.scale * self.row):
             return True
@@ -73,5 +72,6 @@ class Mover:
 
     # Checks to see if the object should proceed to a point or not
     def point_confirm(self, x, y):
-        # Checks to see if the point is been visited before
-        return True
+        # Checks to s
+        if not (x, y) in self.visited_coordinates:
+            return True
