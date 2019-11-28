@@ -1,0 +1,12 @@
+- Path tracker:
+lets break each of the steps it takes into paths and whenever the mover object
+repears a coordinate means that a new path is being shapped and the last one has
+failed, so a new path should be satrted from a new positon that is being taken
+and it is not on the other path. Also, it is important to check to see if there
+have been any options at the end of each of the paths.
+So, there will be a paths list that is going to track every movement of the obejct
+till it hits a previousley travelled coordinate and therefore that path has been proven
+not to work therefore a new path will be made.
+- visulisor:
+Is an visulazition of the way the whole process works and it is also responsible
+for all the logging stuff.
