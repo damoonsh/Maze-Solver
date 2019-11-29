@@ -10,14 +10,8 @@ class Mover:
         self.y = 0
         # Keeping track of taken paths in order to analyze it
         self.visited_coordinates = []  # Just keeps track of the travelled co-ordinates
-        self.moves = []  # Saves the moves being taken
-        # self.move.set_before("base")
-        # Knowing which point are deadends:
-        self.deadEnds = []
-        # A variable for getting out of the deadend
-        self.backing = False
-
-    # Setter Functions===================================================
+    # --------------------------------------------------------------------------
+    # Setter Functions
     # Setting the coordinates if the object
     def set_coordinates(self, x, y):
         # The movement object should be instantiated here
@@ -32,8 +26,8 @@ class Mover:
     def set_dimensions(self, col, row):
         self.col = col
         self.row = row
-
-    # Logic==============================================================
+    # --------------------------------------------------------------------------
+    # Logic
     def move_logic(self, pixelC, x, y):
         # For each set of movement, first we add the movement to the next
         # movement of the current movement and then we equal the current
