@@ -26,13 +26,23 @@ class Mover:
     def set_dimensions(self, col, row):
         self.col = col
         self.row = row
+    # Helpers--------------------------------------------------------------------------
+    def coordinate_change(self, key):
+        directions = {
+            "right": self.x + self.scale, self.y,
+            "left": self.x - self.scale, self.y,
+            "up": self.x, self.y - self.scale,
+            "down": self.x, self.y + self.scale
+        }
+        
+        return directions[key]
     # --------------------------------------------------------------------------
     # Logic
     def move_logic(self, pixelC, x, y):
         # For each set of movement, first we add the movement to the next
         # movement of the current movement and then we equal the current
         # movement to the new movement.
-        # -------------------------------------------------------------------------------------------------
+        # ----------------------------------------------------------------------
         # Note: 6556180 is the color of the blocks
         # The default moves with the priority are: 1. Down 2. Left 3. Left 4. Up
         # DOWN :
