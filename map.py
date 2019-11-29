@@ -5,9 +5,9 @@
 import pygame
 import random
 # Minor utilites used to ease the data transfering process
-from Consts import vals
+from utilities.Consts import vals
 from mover import Mover
-import Consts
+from utilities import Consts
 # Map module
 class Map:
     # Initializing the Object with the default values for rows, cols and scale
