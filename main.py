@@ -6,7 +6,7 @@
 import pygame
 # Importing the wirtten modules
 from map import Map
-from Consts import vals
+from utilities.Consts import vals
 # Main function
 def main():
     # Initial boolean variable for the whole thing
