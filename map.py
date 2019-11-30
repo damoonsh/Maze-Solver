@@ -60,7 +60,7 @@ class Map:
 
         """Drawing the map:"""
         # Instantiating the mover object
-        self.obj = Mover()
+        self.obj = Mover(self.pixel)
         self.obj.set_dimensions(self.col, self.row)
         # Setting the scale for that
         self.obj.set_scale(self.scale)
