@@ -114,7 +114,7 @@ class Map:
 
     # This for general movement
     def autoMove(self):
-        if self.obj.move_logic(self.pixel, self.obj.x, self.obj.y):
+        if self.obj.move_logic(self.obj.x, self.obj.y):
             # Use the move_logic for the needed instructions
             x, y = self.obj.move_logic(self.pixel, self.obj.x, self.obj.y)
 

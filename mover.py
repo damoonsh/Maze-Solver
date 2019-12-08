@@ -1,7 +1,6 @@
 """
     Contains the logic for the mover object
 """
-from utilities.Consts import directions, available_moves
 class Mover:
     # Instntiating the object at the origin/start point of its journey
     def __init__(self, pixel):
@@ -18,11 +17,9 @@ class Mover:
         # The movement object should be instantiated here
         self.x = x
         self.y = y
-
     # Setting the scale so the logic can be applied
     def set_scale(self, scale):
         self.scale = scale
-
     # Setting the needed dimensions
     def set_dimensions(self, col, row):
         self.col = col
@@ -56,6 +53,12 @@ class Mover:
             "left": False,
             "up": False,
             "down": False
+        }
+        directions = {
+            "right": (self.x + self.scale, self.y),
+            "left": (self.x - self.scale, self.y),
+            "up": (self.x, self.y - self.scale),
+            "down": (self.x, self.y + self.scale)
         }
     # --------------------------------------------------------------------------
     # Logic
