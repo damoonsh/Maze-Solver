@@ -1,6 +1,6 @@
 ## HM0-01: beginner level machine learning project
 ![Demo](/img/demo.png)
-> This project has two partitions:
+# This project has two partitions:
 Pt 01: The computer side | pt 02: The self-learning side
 ------------ | -------------
 Generates a random maze | It travels through the maze and tries to optimize it's movement
