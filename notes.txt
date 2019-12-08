@@ -10,3 +10,9 @@ not to work therefore a new path will be made.
 - visulisor:
 Is an visulazition of the way the whole process works and it is also responsible
 for all the logging stuff.
+  - Optimization: imagine that the object has moved in a certain way which after
+  finding the right path, it is found that there have been some extra steps that
+  the mover has taken that would have not affected the whole process and there
+  are basically redundant to take those steps, this should be analyzed by the
+  object and also it should be predicted in the future to avoid or predict if a
+  move is going to be redundant or not?

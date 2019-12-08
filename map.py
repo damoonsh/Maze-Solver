@@ -1,13 +1,14 @@
 '''
     Generates the map and holds it's properties
 '''
-from Consts import vals
-import Consts
+# Needed modules for the pygame and random
 import pygame
 import random
+# Minor utilites used to ease the data transfering process
+from utilities.Consts import vals
 from mover import Mover
-
-
+from utilities import Consts
+# Map module
 class Map:
     # Initializing the Object with the default values for rows, cols and scale
     def __init__(self, consts):
@@ -22,10 +23,9 @@ class Map:
         self.diff = 0.32
         # The delay time for the mover object
         self.delay = 1000
-
-    # --------------------------------------------------------------------------------------------------
-    """ Verification of the map """
-
+    # -------------------------------------------------------------------
+    # Verification of the map--------------------------------------------
+    # -------------------------------------------------------------------
     def get_array(self):
         """ Gets the map in the format of 1/0 array """
         # Keeps track of the map as an array
@@ -60,7 +60,7 @@ class Map:
 
         """Drawing the map:"""
         # Instantiating the mover object
-        self.obj = Mover()
+        self.obj = Mover(self.pixel)
         self.obj.set_dimensions(self.col, self.row)
         # Setting the scale for that
         self.obj.set_scale(self.scale)
@@ -97,14 +97,14 @@ class Map:
         for r in range(self.scale):
             for c in range(self.scale):
                 self.pixel[x + r][y + c] = color
-
-    # --------------------------------------------------------------------------------------------------------------
-    """Logic related functions """
-
+    # --------------------------------------------------------------------------
+    # Logic related functions---------------------------------------------------
+    # --------------------------------------------------------------------------
     # This for the manual movement
     def move(self, dx, dy):
-        # At the beginning it should be checked to see if the co-ordinates are in the demanded range so we won't
-        # have any, errors regarding the function not being in the range
+        # At the beginning it should be checked to see if the co-ordinates are
+        # in the demanded range so we won't have any, errors regarding the
+        # function not being in the range.
         if self.obj.check_range(self.obj.x + self.scale * dx, self.obj.y + self.scale * dy):
             # After checking to see for the co-ordinates it is up to the mover object to decide the movement
             if self.pixel[self.obj.x + self.scale * dx][self.obj.y + self.scale * dy] != 6556180:
@@ -114,7 +114,7 @@ class Map:
 
     # This for general movement
     def autoMove(self):
-        if self.obj.move_logic(self.pixel, self.obj.x, self.obj.y):
+        if self.obj.move_logic(self.obj.x, self.obj.y):
             # Use the move_logic for the needed instructions
             x, y = self.obj.move_logic(self.pixel, self.obj.x, self.obj.y)
 
@@ -123,6 +123,4 @@ class Map:
             self.obj.set_coordinates(x, y)  # Set the new coordinates for the moving object
             self.block(self.obj.x, self.obj.y, Consts.Item)  # Draw the block with it's new place
             self.obj.visited_coordinates.append((x, y))  # Track the visited coordinates
-            # self.obj.check_moves()
-            # Set a delay so the process can be tracked
             pygame.time.wait(self.delay)

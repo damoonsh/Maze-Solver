@@ -1,8 +1,13 @@
-from map import Map
+"""
+    This module runs the different parts of the objects at the same
+    time based on the input by the user.
+"""
+# Pygame is imported so the initial stuff can be instantiated
 import pygame
-from Consts import vals
-
-
+# Importing the wirtten modules
+from map import Map
+from utilities.Consts import vals
+# Main function
 def main():
     # Initial boolean variable for the whole thing
     Run, pause = True, False

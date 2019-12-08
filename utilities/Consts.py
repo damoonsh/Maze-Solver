@@ -4,6 +4,8 @@ Black = (100, 10, 20)
 White = (125, 250, 25)
 Item = (30, 200, 90)
 
+possible_directions = ["right", "left", "up", "down"]
+
 class vals:
     def set_props(self, scale=40, rows=10, cols=10):
         self.scale = scale
