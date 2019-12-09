@@ -101,7 +101,7 @@ class Map:
     # Logic related functions---------------------------------------------------
     # --------------------------------------------------------------------------
     # This for the manual movement
-    def move(self, dx, dy):
+    def move(self, dx, dy):0
         # At the beginning it should be checked to see if the co-ordinates are
         # in the demanded range so we won't have any, errors regarding the
         # function not being in the range.
