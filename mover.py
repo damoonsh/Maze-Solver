@@ -1,7 +1,6 @@
 """
     Contains the logic for the mover object
 """
-from utilities.Consts import possible_directions
 class Mover:
     # Instntiating the object at the origin/start point of its journey
     def __init__(self, pixel):
@@ -21,6 +20,12 @@ class Mover:
     # Setting the scale so the logic can be applied
     def set_scale(self, scale):
         self.scale = scale
+        self.directions = {
+            "right": (self.x + self.scale, self.y),
+            "left": (self.x - self.scale, self.y),
+            "up": (self.x, self.y - self.scale),
+            "down": (self.x, self.y + self.scale)
+        }
     # Setting the needed dimensions
     def set_dimensions(self, col, row):
         self.col = col
@@ -37,9 +42,9 @@ class Mover:
         # Check different directions
         for dir in ["right", "left", "up", "down"]:
             # Gets the coordinates for the direction
-            x, y = directions[key]
+            x, y = self.directions[dir]
             # Checks to see if the point is in range and not dark
-            if check_range(x, y) and pixelC[x][y] != 6556180:
+            if self.check_range(x, y) and self.pixelC[x][y] != 6556180:
                 self.possible_moves[dir] = True
 
     def check_range(self, x, y):
@@ -55,7 +60,7 @@ class Mover:
             "up": False,
             "down": False
         }
-        directions = {
+        self.directions = {
             "right": (self.x + self.scale, self.y),
             "left": (self.x - self.scale, self.y),
             "up": (self.x, self.y - self.scale),
@@ -70,7 +75,11 @@ class Mover:
         # ----------------------------------------------------------------------
         # Note: 6556180 is the color of the blocks
         # The default moves with the priority are: 1. Down 2. Left 3. Left 4. Up
-        pass
+        self.available_moves()
+        print((self.x / self.scale, self.y / self.scale), self.possible_moves)
+        for dir in ["right", "down", "left", "up"]:
+            if self.possible_moves[dir]:
+                return self.directions[dir]
         """
             If there were no movement available then the specific point is a dead
             end and also that point should be considered a dead end so it should
