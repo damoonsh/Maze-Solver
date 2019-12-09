@@ -1,6 +1,7 @@
 """
     Contains the logic for the mover object
 """
+from utilities.Consts import possible_directions
 class Mover:
     # Instntiating the object at the origin/start point of its journey
     def __init__(self, pixel):
@@ -27,27 +28,27 @@ class Mover:
     # Helpers-------------------------------------------------------------------
     # Changing the values for different moves
     def available_moves(self):
-        # There two possible scenarios: either it is the first movement which
-        # the list should be instantiated or it is not the first movement sot
-        # the list should be resseted.
+        """
+            Just checks 4 different directions and changes the values
+            in possible_moves dictionary.
+        """
+        # Reset the possible_moves dic from the previous move
         self.reset()
-        for dir in possible_directions:
-            x, y = coordinate_change(dir)
+        # Check different directions
+        for dir in ["right", "left", "up", "down"]:
+            # Gets the coordinates for the direction
+            x, y = directions[key]
+            # Checks to see if the point is in range and not dark
             if check_range(x, y) and pixelC[x][y] != 6556180:
                 self.possible_moves[dir] = True
-    # Returns the new coordinate for a specific movement
-    def coordinate_change(self, key):
-        return directions[key]
-    # Checks to see if the point is in range and not dark
-    def validate_point(self):
-        pass
-    # Checks to see if the point is in the grid
+
     def check_range(self, x, y):
+        """ Checks to see if the point is in the grid """
         if (0 <= x < self.scale * self.col) and (0 <= y < self.scale * self.row):
             return True
         return False
-    # Resets the available moves
     def reset(self):
+        """ Resets the available moves """
         self.possible_moves = {
             "right": False,
             "left": False,
