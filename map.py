@@ -114,13 +114,13 @@ class Map:
 
     # This for general movement
     def autoMove(self):
-        if self.obj.move_logic(self.obj.x, self.obj.y):
-            # Use the move_logic for the needed instructions
-            x, y = self.obj.move_logic(self.pixel, self.obj.x, self.obj.y)
+    #     if self.obj.move_logic(self.obj.x, self.obj.y):
+        # Use the move_logic for the needed instructions
+        x, y = self.obj.move_logic(self.obj.x, self.obj.y)
 
-            # The process of movement:
-            self.block(self.obj.x, self.obj.y)  # Delete the current place of the block
-            self.obj.set_coordinates(x, y)  # Set the new coordinates for the moving object
-            self.block(self.obj.x, self.obj.y, Consts.Item)  # Draw the block with it's new place
-            self.obj.visited_coordinates.append((x, y))  # Track the visited coordinates
-            pygame.time.wait(self.delay)
+        # The process of movement:
+        self.block(self.obj.x, self.obj.y)  # Delete the current place of the block
+        self.obj.set_coordinates(x, y)  # Set the new coordinates for the moving object
+        self.block(self.obj.x, self.obj.y, Consts.Item)  # Draw the block with it's new place
+        self.obj.visited_coordinates.append((x, y))  # Track the visited coordinates
+        pygame.time.wait(self.delay)
