@@ -16,3 +16,8 @@ for all the logging stuff.
   are basically redundant to take those steps, this should be analyzed by the
   object and also it should be predicted in the future to avoid or predict if a
   move is going to be redundant or not?
+- Lets set a mode where it just tracks the users input and by doing so an algorithem
+could be developed as well as debugging for the tracking process
+store the number of options and then subtract from it when a move has been made
+then go back into the option numbers and find the new path that it is partially located in the
+previous path
