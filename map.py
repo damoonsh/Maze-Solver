@@ -1,6 +1,6 @@
-'''
+"""
     Generates the map and holds it's properties
-'''
+"""
 # Needed modules for the pygame and random
 import pygame
 import random
@@ -10,8 +10,9 @@ from mover import Mover
 from utilities import Consts
 # Map module
 class Map:
-    # Initializing the Object with the default values for rows, cols and scale
     def __init__(self, consts):
+        """Initializing the Object with the default values for rows, cols and
+        scale."""
         # The core blocks of the object that helps
         # us build the map and manipulate it
         self.row = consts.row
@@ -40,10 +41,9 @@ class Map:
                     self.array[r].append("0")
                 else:
                     self.array[r].append("1")
-
-    # ---------------------------------------------------------------------------------------------------
-    # Runs the main process
+    # --------------------------------------------------------------------------
     def run(self):
+        """Runs the main process"""
         # Instantiating the initial properties for the application
         pygame.init()
         height, width = self.col * self.scale, self.row * self.scale
@@ -58,7 +58,7 @@ class Map:
         # Initializing the pixel property
         self.pixel = pygame.PixelArray(self.gameDisplay)
 
-        """Drawing the map:"""
+        # Drawing the map
         # Instantiating the mover object
         self.obj = Mover(self.pixel)
         self.obj.set_dimensions(self.col, self.row)
