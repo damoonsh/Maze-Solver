@@ -43,10 +43,17 @@ def main():
     # Instantiate and run the map by the given consts
     maze = Map(consts)
     maze.run()
+    # Ask the user to see if the user's moves should be tracked or not
+    if input(mode_selection).lower() == 'c':
+        userMode = False
+    else:
+        userMode = True
+        print('Running on user mode.')
     # Main loop where the whole app runs
     while Run:
-        # If it wasn't paused then the moving shall be proceeded
-        if not pause:
+        # If it wasn't paused and not in the user mode then the moving shall
+        # be proceeded
+        if not pause and not userMode:
             maze.autoMove()
         """ Control section: """
         # Controlling the events within the app by this part
