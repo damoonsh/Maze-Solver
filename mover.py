@@ -79,7 +79,8 @@ class Mover:
         # 1: Technicly when the options are up or left it means that there is a
         # deadend and a path to a dead end is a deadend path so it should be taken
         # ISSUE[1]
-        if self.possible_moves["left"] or self.possible_moves[]
+        if self.possible_moves["left"] or self.possible_moves["up"]:
+            pass
         for dir in ["down", "right", "left", "up"]:
             if self.possible_moves[dir]:
                 return self.directions[dir]
