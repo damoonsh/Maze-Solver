@@ -11,6 +11,7 @@ class Mover:
         self.y = 0
         # Keeping track of taken paths in order to analyze it
         self.paths = []
+        # Keeping the track of general visited coordinates
         # [(x, y), "Movement type"]
         self.current_path = []
         self.dead_ends = []
@@ -35,10 +36,8 @@ class Mover:
     # Helpers-------------------------------------------------------------------
     # Changing the values for different moves
     def available_moves(self):
-        """
-            Just checks 4 different directions and changes the values
-            in possible_moves dictionary.
-        """
+        """Just checks 4 different directions and changes the values in
+        possible_moves dictionary."""
         # Reset the possible_moves dic from the previous move
         self.reset()
         # Check different directions
@@ -54,6 +53,7 @@ class Mover:
         if (0 <= x < self.scale * self.col)and (0 <= y < self.scale * self.row):
             return True
         return False
+
     def reset(self):
         """ Resets the available moves """
         self.possible_moves = {
@@ -69,18 +69,37 @@ class Mover:
             "down": (self.x, self.y + self.scale)
         }
     # --------------------------------------------------------------------------
-    # Logic
+    # Logic---------------------------------------------------------------------
+    # --------------------------------------------------------------------------
+    def adjust_path(self):
+        """Adjust the new path based on the previous from where it results to
+        the deadends."""
+        pass
+
     def move_logic(self, x, y):
-        """Main functionality happens here."""
+        """The decision making part of the mover object happens here."""
         # ----------------------------------------------------------------------
         # Note: 6556180 is the color of the blocks
         self.available_moves()
         print((self.x / self.scale, self.y / self.scale), self.possible_moves)
-        # 1: Technicly when the options are up or left it means that there is a
-        # deadend and a path to a dead end is a deadend path so it should be taken
-        # ISSUE[1]
-        if self.possible_moves["left"] or self.possible_moves["up"]:
-            pass
-        for dir in ["down", "right", "left", "up"]:
-            if self.possible_moves[dir]:
-                return self.directions[dir]
+        # 1: Technicly when U have no where to go u have encountered a deadend
+        # so we are going to a base case when it is assumed that we have at least
+        # one available movement but if it wasn't then
+
+        # If there is at least one True in the moves then take it, if not then
+        # there is a deadend being encountered
+        if True in self.possible_moves.values():
+            # Base case: The priorety is 1. Down 2. Right 3. Left 4.Up
+            for dir in ["down", "right", "left", "up"]:
+                if self.possible_moves[dir]:
+                    # Add the points to the visited and current_path list
+                    self.visited.append((self.x, self.y))
+                    self.current_path.append((self.x, self.y))
+                    # Sending the new coordinates to the map
+                    return self.directions[dir]
+        else:
+            # This path is broken
+            self.dead_ends.append((self.x, self.y))
+            self.paths.append(self.current_path)
+
+            self.current_path = []
