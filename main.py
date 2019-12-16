@@ -11,7 +11,15 @@ from utilities.loggings import *
 # Main function
 def main():
     # Initial boolean variable for the whole thing
-    Run, pause = True, False
+    Run, pause, userMode = True, False, False
+
+    def declare_mode():
+        # Ask the user to see if the user's moves should be tracked or not
+        if input(mode_selection).lower() == 'c':
+            userMode = False
+        else:
+            userMode = True
+            print('Running on user mode.')
 
     # Asks if the user wants to adjust the map
     def ask_adjustion():
@@ -24,7 +32,7 @@ def main():
             val = set_val(val)
         else:
             val.set_props()
-
+        declare_mode()
         return val
 
     # The function that prompts the user to enter the map properties
@@ -40,15 +48,10 @@ def main():
 
     # Get the consts object so other objects can communicate with each other easier
     consts = ask_adjustion()
+
     # Instantiate and run the map by the given consts
     maze = Map(consts)
     maze.run()
-    # Ask the user to see if the user's moves should be tracked or not
-    if input(mode_selection).lower() == 'c':
-        userMode = False
-    else:
-        userMode = True
-        print('Running on user mode.')
     # Main loop where the whole app runs
     while Run:
         # If it wasn't paused and not in the user mode then the moving shall
@@ -67,7 +70,7 @@ def main():
                 # When space is enter questions for readjusting will be asked
                 if event.key == pygame.K_SPACE:
                     # Just to separate the processes
-                    print('####################################################')
+                    print(seperator)
                     # Adjusting for the delay time, if demanded
                     command = input(delay_adjusment)
                     if command.lower() == 'y':
@@ -89,10 +92,11 @@ def main():
                 # For pausing the process
                 if event.key == pygame.K_x:
                     pause = not pause
-                    print('Paused: ', pause)
+                    print(paused_msg, pause)
 
                 # Moving manually
                 if event.key == pygame.K_RIGHT:
+                    print("\U0001F923")
                     maze.move(1, 0)
                 if event.key == pygame.K_LEFT:
                     maze.move(-1, 0)
