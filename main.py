@@ -54,10 +54,6 @@ def main():
     maze.run()
     # Main loop where the whole app runs
     while Run:
-        # If it wasn't paused and not in the user mode then the moving shall
-        # be proceeded
-        if not pause and not userMode:
-            maze.autoMove()
         """ Control section: """
         # Controlling the events within the app by this part
         for event in pygame.event.get():
@@ -105,6 +101,10 @@ def main():
                 if event.key == pygame.K_UP:
                     maze.move(0, -1)
 
+        # If it wasn't paused and not in the user mode then the moving
+        # shall be proceeded
+        if not pause and not userMode:
+            maze.autoMove()
         # Updating the display
         pygame.display.update()
 
