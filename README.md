@@ -9,5 +9,5 @@ Generates a random maze | It travels through the maze and tries to optimize it's
 Monitors the movements of the second pt | It stores the data it has collected and makes its dicisions based on the previous trials
 Acts as an supervisor | Acts as the learner and it gets smarter
 
-## 'It tracks the movements: '
+## `It tracks the movements:`
 ![Demo](/img/demo.png)
