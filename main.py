@@ -46,7 +46,7 @@ def main():
         # Return the val object
         return val
 
-    # Get the consts object so other objects can communicate with each other easier
+    # Get the consts object so other objects can communicate with each other
     consts = ask_adjustion()
 
     # Instantiate and run the map by the given consts
