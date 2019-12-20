@@ -2,7 +2,7 @@
 # Colours:
 Black = (100, 10, 20)
 White = (125, 250, 25)
-Item = (30, 200, 90)
+Item = (200, 200, 190)
 
 possible_directions = ["right", "left", "up", "down"]
 

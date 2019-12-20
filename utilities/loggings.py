@@ -5,7 +5,7 @@
 col_input = '[INPUT]Enter the number of cols: '
 row_input = '[INPUT]Enter the number of rows: '
 scale_input = '[INPUT]Enter the scale of your map: '
-mode_selection = "[INPUT]Computer (c) or User(u)?"
+mode_selection = "[INPUT]Computer (c) or User(u)? "
 
 # General logs
 map_settings = 'Press any key but D/d to set your map settings: '
