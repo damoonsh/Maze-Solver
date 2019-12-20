@@ -23,7 +23,7 @@ class Map:
         # The difficulty level of the maze
         self.diff = 0.32
         # The delay time for the mover object
-        self.delay = 1000
+        self.delay = 5000
     # -------------------------------------------------------------------
     # Verification of the map--------------------------------------------
     # -------------------------------------------------------------------
@@ -115,9 +115,10 @@ class Map:
     def autoMove(self):
     #     if self.obj.move_logic(self.obj.x, self.obj.y):
         # Use the move_logic for the needed instructions
-        x, y = self.obj.move_logic(self.obj.x, self.obj.y)
+        x, y = self.obj.move_logic()
 
         # The process of movement:
+        # print('Delete:', int(self.obj.x), int(self.obj.y))
         self.block(self.obj.x, self.obj.y)  # Delete the current place of the block
         self.obj.set_coordinates(x, y)  # Set the new coordinates for the moving object
         self.block(self.obj.x, self.obj.y, Consts.Item)  # Draw the block with it's new place

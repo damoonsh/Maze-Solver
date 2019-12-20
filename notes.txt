@@ -23,5 +23,7 @@ store the number of options and then subtract from it when a move has been made
 then go back into the option numbers and find the new path that it is partially located in the
 previous path
 
-#Ch04: Restructuring the whole thing in a more neat way, seperate the map and
+#Ch04 =  Restructuring the whole thing in a more neat way, seperate the map and
 mover module and their interaction should be limited to the main.py file.
+#CH05 = Validation problems: if the maze is actually solveable or if there is
+dead end from the beginning
