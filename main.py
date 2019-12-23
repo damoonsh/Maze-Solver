@@ -14,15 +14,15 @@ def main():
     Run, pause, userMode = True, False, False
 
     def declare_mode():
-        # Ask the user to see if the user's moves should be tracked or not
+        """Ask the user to see if the user's moves should be tracked or not"""
         if input(mode_selection).lower() == 'c':
             userMode = False
         else:
             userMode = True
             print('Running on user mode.')
 
-    # Asks if the user wants to adjust the map
     def ask_adjustion():
+        """Asks if the user wants to adjust the map"""
         # Initializing an object with it's default values
         val = vals()
         # Prompting the user, if they want to adjust the map properties
@@ -35,8 +35,8 @@ def main():
         declare_mode()
         return val
 
-    # The function that prompts the user to enter the map properties
     def set_val(val):
+        """The function that prompts the user to enter the map properties"""
         # Get the values
         col = int(input(col_input))
         row = int(input(row_input))
