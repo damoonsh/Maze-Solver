@@ -8,6 +8,8 @@ import random
 from utilities.Consts import vals
 from mover import Mover
 from utilities import Consts
+
+
 # Map module
 class Map:
     def __init__(self, consts):
@@ -23,7 +25,8 @@ class Map:
         # The difficulty level of the maze
         self.diff = 0.32
         # The delay time for the mover object
-        self.delay = 5000
+        self.delay = 1000
+
     # -------------------------------------------------------------------
     # Verification of the map--------------------------------------------
     # -------------------------------------------------------------------
@@ -41,6 +44,7 @@ class Map:
                     self.array[r].append("0")
                 else:
                     self.array[r].append("1")
+
     # --------------------------------------------------------------------------
     def run(self):
         """Runs the main process"""
@@ -69,8 +73,8 @@ class Map:
         # Finalizing the process of making the map
         self.generate_map()
 
-    # Generates the map
     def generate_map(self):
+        """Generates the map"""
         for r in range(self.row):
             for c in range(self.col):
                 # Checks to see if the coordinates are in the blocks arrays or not
@@ -82,8 +86,8 @@ class Map:
         # Instantiating the mover object on the domain of the movement
         self.block(0, 0, Consts.Item)
 
-    # Maze: Generates the random blocks within the map
     def maze(self):
+        """Generates the random blocks within the map"""
         # Getting the number of blocks in the map
         num = int((self.row * self.col) * self.diff)
         for i in range(num):
@@ -91,16 +95,17 @@ class Map:
         # Generate the array of the map
         self.get_array()
 
-    # Block: Draws blocks pixel by pixel
     def block(self, x, y, color=Consts.White):
+        """Draws blocks pixel by pixel"""
         for r in range(self.scale):
             for c in range(self.scale):
                 self.pixel[x + r][y + c] = color
+
     # --------------------------------------------------------------------------
     # Logic related functions---------------------------------------------------
     # --------------------------------------------------------------------------
-    # This for the manual movement
     def move(self, dx, dy):
+        """Movement functionality for random movement."""
         # At the beginning it should be checked to see if the co-ordinates are
         # in the demanded range so we won't have any, errors regarding the
         # function not being in the range.
@@ -111,14 +116,12 @@ class Map:
                 self.obj.set_coordinates(self.obj.x + self.scale * dx, self.obj.y + self.scale * dy)
                 self.block(self.obj.x, self.obj.y, Consts.Item)
 
-    # This for general movement
     def autoMove(self):
-    #     if self.obj.move_logic(self.obj.x, self.obj.y):
-        # Use the move_logic for the needed instructions
+        """The automatic way of moving in the maze."""
         x, y = self.obj.move_logic()
 
         # The process of movement:
-        # print('Delete:', int(self.obj.x), int(self.obj.y))
+        print('Deleting ', int(self.obj.x), int(self.obj.y))
         self.block(self.obj.x, self.obj.y)  # Delete the current place of the block
         self.obj.set_coordinates(x, y)  # Set the new coordinates for the moving object
         self.block(self.obj.x, self.obj.y, Consts.Item)  # Draw the block with it's new place
