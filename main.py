@@ -73,7 +73,7 @@ def main():
                         new_delay = int(input('New delay time: '))
                         maze.delay = new_delay
                         # Check to see if the user wants to adjust the map
-                        ask_adjustion()
+                        consts = ask_adjustion()
                     # Re-instantiating the map and running it
                     maze = Map(consts)
                     maze.run()
@@ -92,7 +92,6 @@ def main():
 
                 # Moving manually
                 if event.key == pygame.K_RIGHT:
-                    print("\U0001F923")
                     maze.move(1, 0)
                 if event.key == pygame.K_LEFT:
                     maze.move(-1, 0)
