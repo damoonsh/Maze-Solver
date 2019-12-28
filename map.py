@@ -121,7 +121,6 @@ class Map:
         x, y = self.obj.move_logic()
 
         # The process of movement:
-        print('Deleting ', int(self.obj.x), int(self.obj.y))
         self.block(self.obj.x, self.obj.y)  # Delete the current place of the block
         self.obj.set_coordinates(x, y)  # Set the new coordinates for the moving object
         self.block(self.obj.x, self.obj.y, Consts.Item)  # Draw the block with it's new place
