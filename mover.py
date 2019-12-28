@@ -111,14 +111,13 @@ class Mover:
                 # If a certain movement is not taken for that specific coordinate 
                 # and it is not in the deadends list
                 dir_coor = self.get_coor(dir, move["coor"][0], move["coor"][1])
-                if not (dir in move["move_type"] and dir_coor in self.dead_ends and dir_coor in self.visited):
+                condition = not (dir in move["move_type"] and dir_coor in self.dead_ends and dir_coor in self.visited)
+                if condition:
                     print(dir, 'could be taken.')
                     # Get the coordinates for the movements
                     (self.x, self.y) = move["coor"]
-                    print('New x and y: ', int(self.x), int(self.y))
                     # Add the newly taken direction to the dirs taken
                     pre_path[len(pre_path) - 1 - i]["move_type"].append(dir)
-                    print('added the new move type: ', dir, ',', pre_path[len(pre_path) - 1 - i]["move_type"])
                     # Reset the visited coordinates for the new path
                     self.visited = []
                     return pre_path[:i + 1], self.directions[dir]
@@ -136,7 +135,8 @@ class Mover:
         #
         self.paths.append(self.current_path)
         self.current_path, coor = self.adjust_path()
-
+        print(self.current_path)
+        print('Returning ', coor)
         return coor[0], coor[1]
 
     def move_logic(self):
@@ -159,7 +159,7 @@ class Mover:
             for dir in dirs:
                 # If the direction is available and if it is not in the previously visited one
                 if self.possible_moves[dir] and not (self.directions[dir] in self.visited):
-                    # The structure of path: coor: shows the coordinate that the
+                    # The structure of path = coor: shows the coordinate that the
                     # attributes belong to. options: shows the options the Mover
                     # had. move_type: shows the moves from the coordinate
                     path_info = {
@@ -170,10 +170,11 @@ class Mover:
                     # Add the points to the visited and current_path list
                     self.current_path.append(path_info)
                     self.visited.append((self.x, self.y))
-                    print(self.current_path[-1])
+                    print(self.current_path[-1]["coor"], end='')
                     # Sending the new coordinates to the map
                     return self.directions[dir]
-
+            print('Returning C0')
             return self.deadend_counter()
         else:
+            print('Returning C1')
             return self.deadend_counter()
