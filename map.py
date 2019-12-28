@@ -1,6 +1,6 @@
-'''
+"""
     Generates the map and holds it's properties
-'''
+"""
 # Needed modules for the pygame and random
 import pygame
 import random
@@ -8,10 +8,13 @@ import random
 from utilities.Consts import vals
 from mover import Mover
 from utilities import Consts
+
+
 # Map module
 class Map:
-    # Initializing the Object with the default values for rows, cols and scale
     def __init__(self, consts):
+        """Initializing the Object with the default values for rows, cols and
+        scale."""
         # The core blocks of the object that helps
         # us build the map and manipulate it
         self.row = consts.row
@@ -23,6 +26,7 @@ class Map:
         self.diff = 0.32
         # The delay time for the mover object
         self.delay = 1000
+
     # -------------------------------------------------------------------
     # Verification of the map--------------------------------------------
     # -------------------------------------------------------------------
@@ -41,24 +45,23 @@ class Map:
                 else:
                     self.array[r].append("1")
 
-    # ---------------------------------------------------------------------------------------------------
-    # Runs the main process
+    # --------------------------------------------------------------------------
     def run(self):
+        """Runs the main process"""
         # Instantiating the initial properties for the application
         pygame.init()
         height, width = self.col * self.scale, self.row * self.scale
+        # Setting the logo
+        gameIcon = pygame.image.load('logo.png')
+        pygame.display.set_icon(gameIcon)
         # Setting the height and width
         self.gameDisplay = pygame.display.set_mode((height, width))
         # Setting the caption
         pygame.display.set_caption('HM0-01')
-        # Setting the logo
-        gameIcon = pygame.image.load('logo.png')
-        pygame.display.set_icon(gameIcon)
-
         # Initializing the pixel property
         self.pixel = pygame.PixelArray(self.gameDisplay)
 
-        """Drawing the map:"""
+        # Drawing the map
         # Instantiating the mover object
         self.obj = Mover(self.pixel)
         self.obj.set_dimensions(self.col, self.row)
@@ -70,8 +73,8 @@ class Map:
         # Finalizing the process of making the map
         self.generate_map()
 
-    # Generates the map
     def generate_map(self):
+        """Generates the map"""
         for r in range(self.row):
             for c in range(self.col):
                 # Checks to see if the coordinates are in the blocks arrays or not
@@ -83,8 +86,8 @@ class Map:
         # Instantiating the mover object on the domain of the movement
         self.block(0, 0, Consts.Item)
 
-    # Maze: Generates the random blocks within the map
     def maze(self):
+        """Generates the random blocks within the map"""
         # Getting the number of blocks in the map
         num = int((self.row * self.col) * self.diff)
         for i in range(num):
@@ -92,16 +95,17 @@ class Map:
         # Generate the array of the map
         self.get_array()
 
-    # Block: Draws blocks pixel by pixel
     def block(self, x, y, color=Consts.White):
+        """Draws blocks pixel by pixel"""
         for r in range(self.scale):
             for c in range(self.scale):
                 self.pixel[x + r][y + c] = color
+
     # --------------------------------------------------------------------------
     # Logic related functions---------------------------------------------------
     # --------------------------------------------------------------------------
-    # This for the manual movement
     def move(self, dx, dy):
+        """Movement functionality for random movement."""
         # At the beginning it should be checked to see if the co-ordinates are
         # in the demanded range so we won't have any, errors regarding the
         # function not being in the range.
@@ -112,15 +116,13 @@ class Map:
                 self.obj.set_coordinates(self.obj.x + self.scale * dx, self.obj.y + self.scale * dy)
                 self.block(self.obj.x, self.obj.y, Consts.Item)
 
-    # This for general movement
     def autoMove(self):
-    #     if self.obj.move_logic(self.obj.x, self.obj.y):
-        # Use the move_logic for the needed instructions
-        x, y = self.obj.move_logic(self.obj.x, self.obj.y)
+        """The automatic way of moving in the maze."""
+        x, y = self.obj.move_logic()
 
         # The process of movement:
         self.block(self.obj.x, self.obj.y)  # Delete the current place of the block
         self.obj.set_coordinates(x, y)  # Set the new coordinates for the moving object
         self.block(self.obj.x, self.obj.y, Consts.Item)  # Draw the block with it's new place
-        self.obj.visited_coordinates.append((x, y))  # Track the visited coordinates
+        self.obj.visited.append((x, y))  # Track the visited coordinates
         pygame.time.wait(self.delay)

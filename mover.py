@@ -1,24 +1,36 @@
 """
-    Contains the logic for the mover object
+    This module controls and tracks the movement of the object within the grid.
 """
+# Some needed variables
+dirs = ["down", "right", "left", "up"]
+
+
+# Mover module
 class Mover:
-    # Instntiating the object at the origin/start point of its journey
     def __init__(self, pixel):
+        """Initializing some variables and also setting the pixel controller
+        attribute for the moving object"""
         self.pixelC = pixel
         # Initial co-ordinates for the mover object which is (0, 0)
-        self.x = 0
-        self.y = 0
+        self.x, self.y = 0, 0
         # Keeping track of taken paths in order to analyze it
-        self.visited_coordinates = []  # Just keeps track of the travelled co-ordinates
+        self.paths = []
+        # Keeping the track of general visited coordinates
+        self.visited = []
+        # [(x, y), "Movement type"]
+        self.current_path = []
+        # Keeping track of the deadends
+        self.dead_ends = []
+
     # --------------------------------------------------------------------------
     # Setter Functions
-    # Setting the coordinates if the object
     def set_coordinates(self, x, y):
-        # The movement object should be instantiated here
-        self.x = x
-        self.y = y
-    # Setting the scale so the logic can be applied
+        """The mutation of the object's coordinates happens via this function"""
+        self.x, self.y = x, y
+
     def set_scale(self, scale):
+        """letting the object to know about the scale of the map to move in the
+        grid, also sets the coordinates for different movements"""
         self.scale = scale
         self.directions = {
             "right": (self.x + self.scale, self.y),
@@ -26,17 +38,16 @@ class Mover:
             "up": (self.x, self.y - self.scale),
             "down": (self.x, self.y + self.scale)
         }
-    # Setting the needed dimensions
+
     def set_dimensions(self, col, row):
-        self.col = col
-        self.row = row
+        """Setting the needed dimensions"""
+        self.col, self.row = col, row
+
     # Helpers-------------------------------------------------------------------
     # Changing the values for different moves
     def available_moves(self):
-        """
-            Just checks 4 different directions and changes the values
-            in possible_moves dictionary.
-        """
+        """Just checks 4 different directions and changes the values in
+        possible_moves dictionary."""
         # Reset the possible_moves dic from the previous move
         self.reset()
         # Check different directions
@@ -45,52 +56,125 @@ class Mover:
             x, y = self.directions[dir]
             # Checks to see if the point is in range and not dark
             if self.check_range(x, y) and self.pixelC[x][y] != 6556180:
+                # self.possible_moves["options"].append[dir]
                 self.possible_moves[dir] = True
 
     def check_range(self, x, y):
-        """ Checks to see if the point is in the grid """
+        """ Checks to see if the point is in the grid"""
         if (0 <= x < self.scale * self.col) and (0 <= y < self.scale * self.row):
             return True
         return False
+
     def reset(self):
-        """ Resets the available moves """
+        """ Resets the available moves"""
         self.possible_moves = {
             "right": False,
             "left": False,
             "up": False,
-            "down": False
+            "down": False,
         }
         self.directions = {
-            "right": (self.x + self.scale, self.y),
-            "left": (self.x - self.scale, self.y),
-            "up": (self.x, self.y - self.scale),
-            "down": (self.x, self.y + self.scale)
+            "right": self.get_coor("right", self.x, self.y),
+            "left": self.get_coor("left", self.x, self.y),
+            "up": self.get_coor("up", self.x, self.y),
+            "down": self.get_coor("down", self.x, self.y)
         }
+
+    def get_coor(self, Type, x, y):
+        """Gives the assumed values for different directions"""
+        if Type.lower() == "right":
+            return (x + self.scale, y)
+        if Type.lower() == "left":
+            return (x - self.scale, y)
+        if Type.lower() == "up":
+            return (x, y - self.scale)
+        if Type.lower() == "down":
+            return (x, y + self.scale)
+
     # --------------------------------------------------------------------------
-    # Logic
-    def move_logic(self, x, y):
-        # For each set of movement, first we add the movement to the next
-        # movement of the current movement and then we equal the current
-        # movement to the new movement.
+    # Logic---------------------------------------------------------------------
+    # --------------------------------------------------------------------------
+    def adjust_path(self):
+        """Adjust the new path based on the previous from where it results to
+        the deadends."""
+        pre_path = self.paths[-1]  # The previous path that ended in a deadend
+        # Check the coordinates within the previous path and find where is it
+        # that the path is taken to a deadend
+        for i in range(len(pre_path)):
+            # Check to see the other possible options in each of the point that
+            # could be taken if there are any
+            move = pre_path[len(pre_path) - 1 - i]  # Instantiate the move for analysis
+            print(move)
+            # Go through the four different movements in order to see if it can be done
+            for dir in move["options"]:
+                print(dir, 'option exists.', end='')
+                # If a certain movement is not taken for that specific coordinate 
+                # and it is not in the deadends list
+                dir_coor = self.get_coor(dir, move["coor"][0], move["coor"][1])
+                condition = not (dir in move["move_type"] and dir_coor in self.dead_ends and dir_coor in self.visited)
+                if condition:
+                    print(dir, 'could be taken.')
+                    # Get the coordinates for the movements
+                    (self.x, self.y) = move["coor"]
+                    # Add the newly taken direction to the dirs taken
+                    pre_path[len(pre_path) - 1 - i]["move_type"].append(dir)
+                    # Reset the visited coordinates for the new path
+                    self.visited = []
+                    return pre_path[:i + 1], self.directions[dir]
+                else:
+                    self.dead_ends.append(move["coor"])
+        # In this case there might not be a solution to the whole thing at all
+        return [], (self.x, self.y)
+    
+    def deadend_counter(self):
+        """Returns the new coordinate where the path should be tested."""
+        print('Encountered a deadend.')
+        # This path is broken
+        # Add the coordinate as a deadend so we will know that it will lead to a deadend
+        self.dead_ends.append((self.x, self.y))
+        #
+        self.paths.append(self.current_path)
+        self.current_path, coor = self.adjust_path()
+        print(self.current_path)
+        print('Returning ', coor)
+        return coor[0], coor[1]
+
+    def move_logic(self):
+        """The decision making part of the mover object happens here."""
         # ----------------------------------------------------------------------
         # Note: 6556180 is the color of the blocks
-        # The default moves with the priority are: 1. Down 2. Left 3. Left 4. Up
+        # ----------------------------------------------------------------------
+        # Get the available moving methods for the whole coordinate
         self.available_moves()
-        print((self.x / self.scale, self.y / self.scale), self.possible_moves)
-        for dir in ["right", "down", "left", "up"]:
-            if self.possible_moves[dir]:
-                return self.directions[dir]
-        """
-            If there were no movement available then the specific point is a dead
-            end and also that point should be considered a dead end so it should
-            get out of there so thee point should be added to the dead ends array
-            and the object should recheck the possibilities
-        """
-        self.visited_coordinates.append((x, y))
-
-
-    # Checks to see if the object should proceed to a point or not
-    def point_confirm(self, x, y):
-        # Checks to s
-        if not (x, y) in self.visited_coordinates:
-            return True
+        # Technically when U have no where to go u have encountered a deadend
+        # so we are going to a base case when it is assumed that we have at
+        # least one available movement but if this wasn't the case, then we 
+        # should go through the path and see where it was that led us to a dead 
+        # end.
+        # ----------------------------------------------------------------------
+        # If there is at least one True in the moves then take it, if not, then
+        # there is a deadend being encountered
+        if True in self.possible_moves.values():
+            # Base case: The priority is (1.Down 2.Right 3.Left 4.Up)
+            for dir in dirs:
+                # If the direction is available and if it is not in the previously visited one
+                if self.possible_moves[dir] and not (self.directions[dir] in self.visited):
+                    # The structure of path = coor: shows the coordinate that the
+                    # attributes belong to. options: shows the options the Mover
+                    # had. move_type: shows the moves from the coordinate
+                    path_info = {
+                        "coor": (self.x, self.y),
+                        "options": [d for d in dirs if self.possible_moves[d] and not (d in self.visited)],
+                        "move_type": [dir]
+                    }
+                    # Add the points to the visited and current_path list
+                    self.current_path.append(path_info)
+                    self.visited.append((self.x, self.y))
+                    print(self.current_path[-1]["coor"], end='')
+                    # Sending the new coordinates to the map
+                    return self.directions[dir]
+            print('Returning C0')
+            return self.deadend_counter()
+        else:
+            print('Returning C1')
+            return self.deadend_counter()

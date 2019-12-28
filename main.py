@@ -11,10 +11,18 @@ from utilities.loggings import *
 # Main function
 def main():
     # Initial boolean variable for the whole thing
-    Run, pause = True, False
+    Run, pause, userMode = True, False, False
 
-    # Asks if the user wants to adjust the map
+    def declare_mode():
+        """Ask the user to see if the user's moves should be tracked or not"""
+        if input(mode_selection).lower() == 'c':
+            userMode = False
+        else:
+            userMode = True
+            print('Running on user mode.')
+
     def ask_adjustion():
+        """Asks if the user wants to adjust the map"""
         # Initializing an object with it's default values
         val = vals()
         # Prompting the user, if they want to adjust the map properties
@@ -24,11 +32,11 @@ def main():
             val = set_val(val)
         else:
             val.set_props()
-
+        declare_mode()
         return val
 
-    # The function that prompts the user to enter the map properties
     def set_val(val):
+        """The function that prompts the user to enter the map properties"""
         # Get the values
         col = int(input(col_input))
         row = int(input(row_input))
@@ -38,16 +46,14 @@ def main():
         # Return the val object
         return val
 
-    # Get the consts object so other objects can communicate with each other easier
+    # Get the consts object so other objects can communicate with each other
     consts = ask_adjustion()
+
     # Instantiate and run the map by the given consts
     maze = Map(consts)
     maze.run()
     # Main loop where the whole app runs
     while Run:
-        # If it wasn't paused then the moving shall be proceeded
-        if not pause:
-            maze.autoMove()
         """ Control section: """
         # Controlling the events within the app by this part
         for event in pygame.event.get():
@@ -60,17 +66,18 @@ def main():
                 # When space is enter questions for readjusting will be asked
                 if event.key == pygame.K_SPACE:
                     # Just to separate the processes
-                    print('####################################################')
+                    print(seperator)
                     # Adjusting for the delay time, if demanded
                     command = input(delay_adjusment)
                     if command.lower() == 'y':
                         new_delay = int(input('New delay time: '))
                         maze.delay = new_delay
                         # Check to see if the user wants to adjust the map
-                        ask_adjustion()
+                        consts = ask_adjustion()
                     # Re-instantiating the map and running it
                     maze = Map(consts)
                     maze.run()
+                    pause = True
                 # Quick reset with no questions asked
                 if event.key == pygame.K_r:
                     # Re-instantiating the map and running it
@@ -82,7 +89,7 @@ def main():
                 # For pausing the process
                 if event.key == pygame.K_x:
                     pause = not pause
-                    print('Paused: ', pause)
+                    print(paused_msg, pause)
 
                 # Moving manually
                 if event.key == pygame.K_RIGHT:
@@ -94,6 +101,10 @@ def main():
                 if event.key == pygame.K_UP:
                     maze.move(0, -1)
 
+        # If it wasn't paused and not in the user mode then the moving
+        # shall be proceeded
+        if not pause and not userMode:
+            maze.autoMove()
         # Updating the display
         pygame.display.update()
 
