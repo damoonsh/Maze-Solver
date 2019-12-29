@@ -190,3 +190,4 @@ class Mover:
         else:
             print('Returning C1 ')
             return self.deadend_counter()
+        # If there have not been any available moves then go through the deadend protocol.
