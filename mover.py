@@ -135,7 +135,7 @@ class Mover:
                     # The problem might be in sending the directions[dir]
                     print('--Returning ')
                     self.printList(pre_path[:len(pre_path) - i])
-                    return pre_path[0:len(pre_path) - i], self.get_coor(dir, move["coor"][0], move["coor"][1])
+                    return pre_path[0:len(pre_path) - i], (move["coor"][0], move["coor"][1])
                 else: # If the conditions where not met then that point is technically a deadend
                     print('--Adding', move["coor"], 'to dead ends.')
                     self.dead_ends.append(move["coor"])
