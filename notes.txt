@@ -1,15 +1,11 @@
-- Path tracker:
-#CH01 = lets break each of the steps it takes into paths and whenever the mover object
-repears a coordinate means that a new path is being shapped and the last one has
-failed, so a new path should be satrted from a new positon that is being taken
-and it is not on the other path. Also, it is important to check to see if there
-have been any options at the end of each of the paths.
-So, there will be a paths list that is going to track every movement of the obejct
-till it hits a previousley travelled coordinate and therefore that path has been proven
-not to work therefore a new path will be made.
+- Path tracker: Make it a module
 
-#CH02 = visulisor:
-Is an visulazition of the way the whole process works and it is also responsible
+#CH01 = SQL:
+- Track data: get the map sizes, deadends of the map, the final path that has been taken with it's points.
+
+
+#CH02 = visualizer:
+Is an visualization of the way the whole process works and it is also responsible
 for all the logging stuff.
   - Optimization: imagine that the object has moved in a certain way which after
   finding the right path, it is found that there have been some extra steps that
@@ -17,13 +13,16 @@ for all the logging stuff.
   are basically redundant to take those steps, this should be analyzed by the
   object and also it should be predicted in the future to avoid or predict if a
   move is going to be redundant or not?
-#CH03 = Lets set a mode where it just tracks the users input and by doing so an algorithem
+
+#CH03 = Lets set a mode where it just tracks the users input and by doing so an algorithm
 could be developed as well as debugging for the tracking process
 store the number of options and then subtract from it when a move has been made
 then go back into the option numbers and find the new path that it is partially located in the
 previous path
 
-#Ch04 =  Restructuring the whole thing in a more neat way, seperate the map and
+#Ch04 =  Restructuring the whole thing in a more neat way, separate the map and
 mover module and their interaction should be limited to the main.py file.
-#CH05 = Validation problems: if the maze is actually solveable or if there is
+#CH05 = Validation problems: if the maze is actually solvable or if there is
 dead end from the beginning
+ 
+-- Change the priority list for dead end protocols.
