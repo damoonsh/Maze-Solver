@@ -8,6 +8,12 @@
 - Choose between user/computer mode.
 - Choose the dimensions of the map.
 
+<h5> Platform variables: </h5>
+-`x`: Pauses the movement.
+-`space`: Resets the map.
+-`r`: resets the map and the object.
+
+
 # This project has two partitions:
 Partition 01: Computer| Partition 02: The **self-learning** side
 ---------------------------- | ----------------------------
