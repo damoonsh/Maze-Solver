@@ -40,8 +40,6 @@ By the use of the modules in Map, Consts  and the utilties in the  utility folde
                  </p>
                </details>
 
-<br />
-
 ### Partion 02:
 <p align="left">
   They are two main aspects to the mover module(which controls the self-learning partition.). The first one is that
@@ -57,12 +55,8 @@ path_info = {
   "move_type": [dir]
 }
 ```
- 
-<br />
 
 <h6> Which can be visualised as: </h6>
 <p align="center">
   <img src="/img/demo.png" width=90% height=90% alt="Demo" />
 </p>
-
-<br />
