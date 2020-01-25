@@ -4,7 +4,10 @@
   <img src="/img/demo00.png" alt="Demo"/>
  </p>
  
-- Testing the basic functionality
+- Testing the basic functionality.
+- Choose between user/computer mode.
+- Choose the dimensions of the map.
+
 # This project has two partitions:
 Pt 01: The computer side | Pt 02: The **self-learning** side
 ----------------------- | ----------------------- 
