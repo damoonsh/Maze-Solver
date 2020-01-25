@@ -1,7 +1,7 @@
 <h1 align="center">HM0-01: Platform for training a maze solver </h1>
 
 <p align="center">
-  <img src="/img/demo00.png" width=80% height=80% alt="Demo"/>
+  <img src="/img/entry_point.png" width=80% height=80% alt="Demo"/>
  </p>
  
 - Testing the basic functionality.

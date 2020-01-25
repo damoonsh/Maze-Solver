@@ -4,7 +4,7 @@
 """
 # Pygame is imported so the initial stuff can be instantiated
 import pygame
-# Importing the wirtten modules
+# Importing the written modules
 from map import Map
 from utilities.Consts import vals
 from utilities.loggings import *
@@ -32,6 +32,7 @@ def main():
             val = set_val(val)
         else:
             val.set_props()
+        pause = False
         declare_mode()
         return val
 
@@ -75,9 +76,9 @@ def main():
                         # Check to see if the user wants to adjust the map
                         consts = ask_adjustion()
                     # Re-instantiating the map and running it
+                    pause = False
                     maze = Map(consts)
                     maze.run()
-                    pause = True
                 # Quick reset with no questions asked
                 if event.key == pygame.K_r:
                     # Re-instantiating the map and running it

@@ -90,53 +90,66 @@ class Mover:
             return (x, y - self.scale)
         if Type.lower() == "down":
             return (x, y + self.scale)
-
+    # --------------------------------------------------------------------------
+    # Debugging utilities-------------------------------------------------------
+    # --------------------------------------------------------------------------
+    def printList(self, l):
+        for z in l:
+            print('----', z)
     # --------------------------------------------------------------------------
     # Logic---------------------------------------------------------------------
     # --------------------------------------------------------------------------
     def adjust_path(self):
-        """Adjust the new path based on the previous from where it results to
-        the deadends."""
+        """Adjust the new path based on the previous from where it resulted to
+        a deadend."""
         pre_path = self.paths[-1]  # The previous path that ended in a deadend
-        # Check the coordinates within the previous path and find where is it
-        # that the path is taken to a deadend
+        print("-Adjusting have started for")
+        self.printList(pre_path)
+        # Check the coordinates within the previous path and find 
+        # where is it that the path is taken to a deadend
         for i in range(len(pre_path)):
-            # Check to see the other possible options in each of the point that
-            # could be taken if there are any
-            move = pre_path[len(pre_path) - 1 - i]  # Instantiate the move for analysis
-            print(move)
+            # Check to see the other possible options in each of the 
+            # point that could be taken, if there are any.
+            move = pre_path[len(pre_path) - 1 - i]  # Get the move for analysis
+            print('--Checking the move:', move, ',index:', int(len(pre_path) - 1 - i))
+            # Getting the coordinates of that move
+            (x, y) = move["coor"][0], move["coor"][1]
+            print('The coordinate getting checked is: ', int(x), int(y))
             # Go through the four different movements in order to see if it can be done
             for dir in move["options"]:
-                print(dir, 'option exists.', end='')
-                # If a certain movement is not taken for that specific coordinate 
-                # and it is not in the deadends list
-                dir_coor = self.get_coor(dir, move["coor"][0], move["coor"][1])
-                condition = not (dir in move["move_type"] and dir_coor in self.dead_ends and dir_coor in self.visited)
+                print('---', dir, 'option exists, ')
+                # If a certain movement is not taken for that specific 
+                # coordinate and it is not in the deadends list
+                dir_coor = self.get_coor(dir, x, y)  # Get the coordinate if that move have been made
+                tried = dir in move["move_type"] # If the movement type has been tested before
+                deadend = dir_coor in self.dead_ends # If the coordinate is a dead end
+                visited = dir_coor in self.visited
+                print('Tried:', tried, ',deadend:', deadend)
+                condition = not (tried and deadend and visited)  # General condition
+                # If those conditions where satisfied then re-adjust the new path
                 if condition:
                     print(dir, 'could be taken.')
-                    # Get the coordinates for the movements
-                    (self.x, self.y) = move["coor"]
-                    # Add the newly taken direction to the dirs taken
-                    pre_path[len(pre_path) - 1 - i]["move_type"].append(dir)
                     # Reset the visited coordinates for the new path
                     self.visited = []
-                    return pre_path[:i + 1], self.directions[dir]
-                else:
+                    pre_path[len(pre_path) - 1 - i]["move_type"].append(dir) 
+                    # The problem might be in sending the directions[dir]
+                    print('--Returning ')
+                    self.printList(pre_path[:len(pre_path) - i])
+                    return pre_path[0:len(pre_path) - i], (move["coor"][0], move["coor"][1])
+                else: # If the conditions where not met then that point is technically a deadend
+                    print('--Adding', move["coor"], 'to dead ends.')
                     self.dead_ends.append(move["coor"])
         # In this case there might not be a solution to the whole thing at all
         return [], (self.x, self.y)
     
     def deadend_counter(self):
         """Returns the new coordinate where the path should be tested."""
-        print('Encountered a deadend.')
-        # This path is broken
         # Add the coordinate as a deadend so we will know that it will lead to a deadend
+        print('adding', int(self.x), int(self.y), ' to dead ends.')
         self.dead_ends.append((self.x, self.y))
-        #
+        # This path has been failed so, will just put in the failed ones
         self.paths.append(self.current_path)
         self.current_path, coor = self.adjust_path()
-        print(self.current_path)
-        print('Returning ', coor)
         return coor[0], coor[1]
 
     def move_logic(self):
@@ -154,11 +167,18 @@ class Mover:
         # ----------------------------------------------------------------------
         # If there is at least one True in the moves then take it, if not, then
         # there is a deadend being encountered
+        # Deadend protocol: when there is no way to move for the specific point, the
+        # protocol is activated however it is important to note that point is not added 
+        # to the current path
         if True in self.possible_moves.values():
             # Base case: The priority is (1.Down 2.Right 3.Left 4.Up)
             for dir in dirs:
+                move_available = self.possible_moves[dir]
+                visited = self.directions[dir] in self.visited
+                deadend = self.directions[dir] in self.dead_ends
+                # print('Av: ', move_available, ',Visited:', visited, ',deadend:', deadend)
                 # If the direction is available and if it is not in the previously visited one
-                if self.possible_moves[dir] and not (self.directions[dir] in self.visited):
+                if move_available and not (visited or deadend):
                     # The structure of path = coor: shows the coordinate that the
                     # attributes belong to. options: shows the options the Mover
                     # had. move_type: shows the moves from the coordinate
@@ -167,14 +187,11 @@ class Mover:
                         "options": [d for d in dirs if self.possible_moves[d] and not (d in self.visited)],
                         "move_type": [dir]
                     }
+                    # print(path_info, self.directions[dir])
                     # Add the points to the visited and current_path list
                     self.current_path.append(path_info)
                     self.visited.append((self.x, self.y))
-                    print(self.current_path[-1]["coor"], end='')
                     # Sending the new coordinates to the map
                     return self.directions[dir]
-            print('Returning C0')
-            return self.deadend_counter()
-        else:
-            print('Returning C1')
-            return self.deadend_counter()
+        # If there have not been any available moves then go through the deadend protocol.
+        return self.deadend_counter()

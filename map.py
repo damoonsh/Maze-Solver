@@ -4,7 +4,7 @@
 # Needed modules for the pygame and random
 import pygame
 import random
-# Minor utilites used to ease the data transfering process
+# Minor utilities used to ease the data transfering process
 from utilities.Consts import vals
 from mover import Mover
 from utilities import Consts
@@ -121,8 +121,10 @@ class Map:
         x, y = self.obj.move_logic()
 
         # The process of movement:
+        # print('Deleting ', int(self.obj.x), int(self.obj.y), end='')
         self.block(self.obj.x, self.obj.y)  # Delete the current place of the block
         self.obj.set_coordinates(x, y)  # Set the new coordinates for the moving object
+        # print(', Drawing', int(self.obj.x), int(self.obj.y))
         self.block(self.obj.x, self.obj.y, Consts.Item)  # Draw the block with it's new place
         self.obj.visited.append((x, y))  # Track the visited coordinates
         pygame.time.wait(self.delay)
