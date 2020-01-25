@@ -1,6 +1,8 @@
 ## HM0-01: beginner level machine learning project
 
-![Demo](/img/demo00.png)
+<p align="center">
+  <img src="/img/demo00.png" alt="Demo"/>
+ </p>
 - Testing the basic functionality
 # This project has two partitions:
 Pt 01: The computer side | Pt 02: The **self-learning** side
