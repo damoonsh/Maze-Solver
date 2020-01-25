@@ -1,7 +1,7 @@
 <h1 align="center">HM0-01: Platform for training a maze solver </h1>
 
 <p align="center">
-  <img src="/img/demo00.png" width=70% height=70% alt="Demo"/>
+  <img src="/img/demo00.png" width=80% height=80% alt="Demo"/>
  </p>
  
 - Testing the basic functionality.
@@ -17,6 +17,6 @@ Acts as an supervisor to the second partion but does not interfere | Acts as the
 
 ## `It tracks the movements:`
 <p align="center">
-  <img src="/img/demo.png" alt="Demo" />
+  <img src="/img/demo.png" width=80% height=80% alt="Demo" />
 </p>
 - Gets the co-ordinates and the movement that has been done from that co-ordinate
