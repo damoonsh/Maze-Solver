@@ -3,11 +3,11 @@
 <p align="center">
   <img src="/img/entry_point.png" width=80% height=80% alt="Demo"/>
 </p>
-``` diff
-- Testing the basic functionality. in gray
-- Choose between user/computer mode. in gray
-- Choose the dimensions of the map. in gray
-```
+
+- ```Testing the basic functionality.```
+- ```Choose between user/computer mode.```
+- ```Choose the dimensions of the map.```
+
 <h5> Platform variables: </h5>
 
 - `x`: Pauses the movement.
