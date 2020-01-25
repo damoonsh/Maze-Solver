@@ -48,13 +48,13 @@ By the use of the modules in Map, Consts  and the utilties in the  utility folde
 </p>
 
 Markup: 
-'''
+```
                     path_info = {
                         "coor": (self.x, self.y),
                         "options": [d for d in dirs if self.possible_moves[d] and not (d in self.visited)],
                         "move_type": [dir]
                     }
-'''
+```
  
 
 ## `It tracks the movements:`
