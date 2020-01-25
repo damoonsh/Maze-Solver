@@ -21,7 +21,7 @@ Generates a random maze with graphics | Travels through the maze and tries to op
 Monitors the movements of the second partion. | It stores the data it has collected and makes its dicisions based on the previous trials
 Acts as an supervisor to the second partion but does not interfere | Acts as the learner and it gets smarter in a way to optimize it's path.
 
-<br/>
+<br />
 
 ### Partion 01: 
 By the use of the modules in Map, Consts  and the utilties in the  utility folder, there is a map generated.
@@ -40,7 +40,7 @@ By the use of the modules in Map, Consts  and the utilties in the  utility folde
                  </p>
                </details>
 
-<br/>
+<br />
 
 ### Partion 02:
 <p align="left">
@@ -58,11 +58,11 @@ path_info = {
 }
 ```
  
-<br/>
+<br />
 
-<h6> Which can be visualised as: "
+<h6> Which can be visualised as: </h6>
 <p align="center">
   <img src="/img/demo.png" width=90% height=90% alt="Demo" />
 </p>
 
-<br/>
+<br />
