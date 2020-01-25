@@ -10,7 +10,7 @@
 
 <h5> Platform variables: </h5>
 
-- : Pauses the movement.
+-`x`: Pauses the movement.
 -`space`: Resets the map.
 -`r`: resets the map and the object.
 
