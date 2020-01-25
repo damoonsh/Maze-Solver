@@ -9,7 +9,9 @@ Pt 01: The computer side | Pt 02: The **self-learning** side
 ------------ | -------------
 Generates a random maze with graphics | Travels through the maze and tries to optimize it's movement by gathering data about the map.
 Monitors the movements of the second partion. | It stores the data it has collected and makes its dicisions based on the previous trials
-Acts as an supervisor to the second partion but does not <b>interfere</b> | Acts as the learner and it gets smarter in a way to optimize it's path.
+Acts as an supervisor to the second partion but does not interfere | Acts as the learner and it gets smarter in a way to optimize it's path.
 
 ## `It tracks the movements:`
-![Demo](/img/demo.png)
+<p align="center">
+  <img src="/img/demo.png" alt="Demo" />
+</p>
