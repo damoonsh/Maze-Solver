@@ -9,15 +9,10 @@
 - Choose the dimensions of the map.
 
 <h5> Platform variables: </h5>
+
 - : Pauses the movement.
 -`space`: Resets the map.
 -`r`: resets the map and the object.
-<ul>
-  <li><p style="background-color: #F00">x</p></li>
-  <li></li>
-  <lili>
-</ul>
-
 
 # This project has two partitions:
 Partition 01: Computer| Partition 02: The **self-learning** side
