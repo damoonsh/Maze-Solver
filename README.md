@@ -9,10 +9,13 @@
 - Choose the dimensions of the map.
 
 <h5> Platform variables: </h5>
+- : Pauses the movement.
+-`space`: Resets the map.
+-`r`: resets the map and the object.
 <ul>
-  <li><p style="background-color: #F00">x</p>: Pauses the movement.</li>
-  <li>`space`: Resets the map.</li>
-  <li>`r`: resets the map and the object.</li>
+  <li><p style="background-color: #F00">x</p></li>
+  <li></li>
+  <lili>
 </ul>
 
 
