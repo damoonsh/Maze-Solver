@@ -4,7 +4,7 @@
   <img src="/img/entry_point.png" width=80% height=80% alt="Demo"/>
 </p>
  
-- Testing the basic functionality.
+- Testing the basic functionality. in gray
 - Choose between user/computer mode.
 - Choose the dimensions of the map.
 
