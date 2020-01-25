@@ -10,7 +10,7 @@
 
 <h5> Platform variables: </h5>
 <ul>
-  <li><p background-color: #FFFF00>x</p>: Pauses the movement.</li>
+  <li><p style="background-color: #F00">x</p>: Pauses the movement.</li>
   <li>`space`: Resets the map.</li>
   <li>`r`: resets the map and the object.</li>
 </ul>
