@@ -9,9 +9,11 @@
 - Choose the dimensions of the map.
 
 <h5> Platform variables: </h5>
--`x`: Pauses the movement.
--`space`: Resets the map.
--`r`: resets the map and the object.
+<ul>
+  <li>`x`: Pauses the movement.</li>
+  <li>`space`: Resets the map.</li>
+  <li>`r`: resets the map and the object.</li>
+</ul>
 
 
 # This project has two partitions:
