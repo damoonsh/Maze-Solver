@@ -1,4 +1,4 @@
-## HM0-01: beginner level machine learning project
+<h1 align="center">HM0-01: Platform for training a maze solver </h1>
 
 <p align="center">
   <img src="/img/demo00.png" alt="Demo"/>
@@ -7,9 +7,9 @@
 # This project has two partitions:
 Pt 01: The computer side | Pt 02: The **self-learning** side
 ------------ | -------------
-Generates a random maze | It travels through the maze and tries to optimize it's movement
-Monitors the movements of the second pt | It stores the data it has collected and makes its dicisions based on the previous trials
-Acts as an supervisor | Acts as the learner and it gets smarter
+Generates a random maze with graphics | Travels through the maze and tries to optimize it's movement by gathering data about the map.
+Monitors the movements of the second partion. | It stores the data it has collected and makes its dicisions based on the previous trials
+Acts as an supervisor to the second partion but does not <b>interfere</b> | Acts as the learner and it gets smarter in a way to optimize it's path.
 
 ## `It tracks the movements:`
 ![Demo](/img/demo.png)
