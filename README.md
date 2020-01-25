@@ -19,4 +19,5 @@ Acts as an supervisor to the second partion but does not interfere | Acts as the
 <p align="center">
   <img src="/img/demo.png" width=80% height=80% alt="Demo" />
 </p>
-- Gets the co-ordinates and the movement that has been done from that co-ordinate
+
+- Gets the co-ordinates and the movement that has been done from that co-ordinate.
