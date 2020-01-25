@@ -2,7 +2,7 @@
 
 <p align="center">
   <img src="/img/entry_point.png" width=80% height=80% alt="Demo"/>
- </p>
+</p>
  
 - Testing the basic functionality.
 - Choose between user/computer mode.
@@ -10,9 +10,9 @@
 
 <h5> Platform variables: </h5>
 
--`x`: Pauses the movement.
--`space`: Resets the map.
--`r`: resets the map and the object.
+- `x`: Pauses the movement.
+- `space`: Resets the map.
+- `r`: resets the map and the object.
 
 # This project has two partitions:
 Partition 01: Computer| Partition 02: The **self-learning** side
