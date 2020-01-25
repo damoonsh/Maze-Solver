@@ -39,7 +39,9 @@ By the use of the modules in Map, Consts  and the utilties in the  utility folde
                   help the user interact with the platform.
                  </p>
                </details>
+
 <br/>
+
 ### Partion 02:
 <p align="left">
   They are two main aspects to the mover module(which controls the self-learning partition.). The first one is that
@@ -56,10 +58,11 @@ path_info = {
 }
 ```
  
+<br/>
 
-## `It tracks the movements:`
+<h6> Which can be visualised as: "
 <p align="center">
-  <img src="/img/demo.png" width=80% height=80% alt="Demo" />
+  <img src="/img/demo.png" width=90% height=90% alt="Demo" />
 </p>
 
-- Gets the co-ordinates and the movement that has been done from that co-ordinate.
+<br/>
