@@ -4,5 +4,4 @@ __pycache__/
 /note.txt
 /*.pyc
 /.vscode
-/*sh
 /venv/
