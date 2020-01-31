@@ -94,6 +94,7 @@ class Mover:
     # Debugging utilities-------------------------------------------------------
     # --------------------------------------------------------------------------
     def printList(self, l):
+        """Prints the list on a line format."""
         for z in l:
             print('----', z)
     # --------------------------------------------------------------------------
@@ -103,49 +104,38 @@ class Mover:
         """Adjust the new path based on the previous from where it resulted to
         a deadend."""
         pre_path = self.paths[-1]  # The previous path that ended in a deadend
-        print("-Adjusting have started for")
-        self.printList(pre_path)
-        # Check the coordinates within the previous path and find 
+        # Check the coordinates within the previous path and find
         # where is it that the path is taken to a deadend
         for i in range(len(pre_path)):
-            # Check to see the other possible options in each of the 
+            # Check to see the other possible options in each of the
             # point that could be taken, if there are any.
             move = pre_path[len(pre_path) - 1 - i]  # Get the move for analysis
-            print('--Checking the move:', move, ',index:', int(len(pre_path) - 1 - i))
             # Getting the coordinates of that move
             (x, y) = move["coor"][0], move["coor"][1]
-            print('The coordinate getting checked is: ', int(x), int(y))
             # Go through the four different movements in order to see if it can be done
             for dir in move["options"]:
-                print('---', dir, 'option exists, ')
-                # If a certain movement is not taken for that specific 
+                # If a certain movement is not taken for that specific
                 # coordinate and it is not in the deadends list
                 dir_coor = self.get_coor(dir, x, y)  # Get the coordinate if that move have been made
                 tried = dir in move["move_type"] # If the movement type has been tested before
                 deadend = dir_coor in self.dead_ends # If the coordinate is a dead end
                 visited = dir_coor in self.visited
-                print('Tried:', tried, ',deadend:', deadend)
                 condition = not (tried and deadend and visited)  # General condition
                 # If those conditions where satisfied then re-adjust the new path
                 if condition:
-                    print(dir, 'could be taken.')
                     # Reset the visited coordinates for the new path
                     self.visited = []
-                    pre_path[len(pre_path) - 1 - i]["move_type"].append(dir) 
+                    pre_path[len(pre_path) - 1 - i]["move_type"].append(dir)
                     # The problem might be in sending the directions[dir]
-                    print('--Returning ')
-                    self.printList(pre_path[:len(pre_path) - i])
                     return pre_path[0:len(pre_path) - i], (move["coor"][0], move["coor"][1])
                 else: # If the conditions where not met then that point is technically a deadend
-                    print('--Adding', move["coor"], 'to dead ends.')
                     self.dead_ends.append(move["coor"])
         # In this case there might not be a solution to the whole thing at all
         return [], (self.x, self.y)
-    
+
     def deadend_counter(self):
         """Returns the new coordinate where the path should be tested."""
         # Add the coordinate as a deadend so we will know that it will lead to a deadend
-        print('adding', int(self.x), int(self.y), ' to dead ends.')
         self.dead_ends.append((self.x, self.y))
         # This path has been failed so, will just put in the failed ones
         self.paths.append(self.current_path)
@@ -161,14 +151,14 @@ class Mover:
         self.available_moves()
         # Technically when U have no where to go u have encountered a deadend
         # so we are going to a base case when it is assumed that we have at
-        # least one available movement but if this wasn't the case, then we 
-        # should go through the path and see where it was that led us to a dead 
+        # least one available movement but if this wasn't the case, then we
+        # should go through the path and see where it was that led us to a dead
         # end.
         # ----------------------------------------------------------------------
         # If there is at least one True in the moves then take it, if not, then
         # there is a deadend being encountered
         # Deadend protocol: when there is no way to move for the specific point, the
-        # protocol is activated however it is important to note that point is not added 
+        # protocol is activated however it is important to note that point is not added
         # to the current path
         if True in self.possible_moves.values():
             # Base case: The priority is (1.Down 2.Right 3.Left 4.Up)
