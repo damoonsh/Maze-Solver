@@ -2,8 +2,13 @@
 
 #CH01 = SQL:
 - Track data: get the map sizes, deadends of the map, the final path that has been taken with it's points.
-
-
+- testing phase:
+  1. Working on the data entry, date coordinates, dimensions
+  Note: Write an exception, so the db would not be created if not intended
+  variables:
+    - Deminsions: cols, rows, and scale
+    - Characteristic: n_options, options, taken_options
+    - deadend: True or False
 #CH02 = visualizer:
 Is an visualization of the way the whole process works and it is also responsible
 for all the logging stuff.
@@ -24,5 +29,5 @@ previous path
 mover module and their interaction should be limited to the main.py file.
 #CH05 = Validation problems: if the maze is actually solvable or if there is
 dead end from the beginning
- 
+
 -- Change the priority list for dead end protocols.
